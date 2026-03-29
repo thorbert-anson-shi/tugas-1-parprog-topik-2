@@ -26,17 +26,17 @@ fn main() {
     let _ = run(&args[2]);
     let mut total1 = Duration::ZERO;
     for _ in 0..n {
-        total1 += run(&args[1]);
+        total1 += run(&args[2]);
     }
     let d1 = total1 / n as u32;
 
-    if args.len() == 2 {
+    if args.len() == 3 {
         println!("{}", format_duration(d1));
     } else {
         let _ = run(&args[3]);
         let mut total2 = Duration::ZERO;
         for _ in 0..n {
-            total2 += run(&args[2]);
+            total2 += run(&args[3]);
         }
         let d2 = total2 / n as u32;
 
