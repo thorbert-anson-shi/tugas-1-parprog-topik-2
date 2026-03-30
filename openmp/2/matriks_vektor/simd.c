@@ -4,7 +4,7 @@
 
 void matvec_omp(double *A, double *x, double *y, int n, int m) {
   // thread schedeuling untuk for dilakukan diawal
-#pragma omp parallel for schedule(static)
+#pragma omp parallel for simd schedule(static)
   for (int i = 0; i < n; i++) {
     double sum = 0.0;
 
@@ -22,6 +22,7 @@ void matvec_omp(double *A, double *x, double *y, int n, int m) {
 int main() {
   int n = 4096, m = 4096;
 
+  // paaki 64byte jhj support AVX-512
   double *A = aligned_alloc(32, n * m * sizeof(double));
   double *x = aligned_alloc(32, m * sizeof(double));
   double *y = aligned_alloc(32, n * sizeof(double));
