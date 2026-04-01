@@ -4,7 +4,7 @@
 
 void matvec_omp(double *A, double *x, double *y, int n, int m) {
   // thread schedeuling untuk for dilakukan diawal
-#pragma omp parallel for simd schedule(static)
+#pragma omp parallel for schedule(static)
   for (int i = 0; i < n; i++) {
     double sum = 0.0;
 
@@ -32,13 +32,15 @@ int main() {
   for (int i = 0; i < m; i++)
     x[i] = 1.0;
 
-  double t1 = omp_get_wtime();
-  for (int i = 0; i < 100; i++) {
+  double sum = 0.0;
+  for (int i = 0; i < 1000; i++) {
+    double t1 = omp_get_wtime();
     matvec_omp(A, x, y, n, m);
+    double t2 = omp_get_wtime();
+    sum += t2 - t1;
   }
-  double t2 = omp_get_wtime();
 
-  printf("%f\n", (t2 - t1) / 100);
+  printf("%f\n", (sum) / 1000);
 
   free(A);
   free(x);
